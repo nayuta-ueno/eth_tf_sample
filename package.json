@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@openzeppelin/contracts": "^3.3.0",
+    "solidoc": "github:statechannels/solidoc",
     "truffle": "^5.1.62",
     "truffle-assertions": "^0.9.2"
   }
