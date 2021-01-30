@@ -2,13 +2,17 @@ const Token = artifacts.require("MyToken");
 const truffleAssert = require('truffle-assertions');
 
 contract("MyToken test", async accounts => {
+  let instance;
+
+  it("init", async () => {
+    instance = await Token.new("aaa", "bbb", 200000);
+  });
+
   it("totalSupply", async () => {
-    const instance = await Token.deployed();
     assert.equal(await instance.totalSupply(), 200000, "supply");
   });
 
   it("transfer", async () => {
-    const instance = await Token.deployed();
     await truffleAssert.passes(
       instance.transfer(accounts[1], 10000, {from: accounts[0]})
     );
@@ -17,7 +21,6 @@ contract("MyToken test", async accounts => {
   });
 
   it("transfer event", async () => {
-    const instance = await Token.deployed();
     const tx = await instance.transfer(accounts[2], 9000, {from: accounts[1]});
     truffleAssert.eventEmitted(tx, "Transfer", (ev) => {
       assert.equal(ev.from, accounts[1], "from");

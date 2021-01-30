@@ -2,6 +2,7 @@
 pragma solidity ^0.6.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "hardhat/console.sol";
 
 /**
  * @title MyTokenコントラクト
@@ -34,6 +35,7 @@ contract MyToken is ERC20 {
     constructor(string memory name, string memory symbol, uint256 amount) ERC20(name, symbol) public {
         _mint(msg.sender, amount);
         _setupDecimals(0);
+        console.log("constructor: %s %s %d", name, symbol, amount);
     }
 
     /**
@@ -47,6 +49,7 @@ contract MyToken is ERC20 {
         _last.from = from;
         _last.to = to;
         _last.amount = amount;
+        console.log("_beforeTokenTransfer: %d %d %d", from, to, amount);
     }
 
     /**
@@ -58,5 +61,6 @@ contract MyToken is ERC20 {
     function getContracInfo() public view returns (string memory cname, uint256 supply) {
         cname = "MyToken";
         supply = totalSupply();
+        console.log("getContracInfo: %s %d", cname, supply);
     }
 }
